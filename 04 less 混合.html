@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>less 混合</title>
+</head>
+
+<body>
+    
+
+    <h3>混合就是将一系列属性定义到一个规则集里, 再引用到另一个规则集的引用方式</h3>
+
+    <h4>普通混合</h4>
+    <section style="border: 1px solid black;">
+        <style type="text/less">
+            // 定义通用
+            .common {
+                display: inline-block;
+        
+                width: 50%;
+                height: 50%;
+    
+                text-align: center;
+            }
+    
+            .section1 {
+                width: 600px;
+                height: 300px;
+                border: 1px solid black;
+    
+                .div1 {
+                    // 引用定义样式
+                    .common;
+                }
+    
+                .div2 {
+                    // 引用定义样式
+                    .common;
+                }
+            }
+        </style>
+
+        <section class="section1">
+            <div class="div1">
+                div1
+            </div>
+    
+            <div class="div2">
+                div2
+            </div>
+        </section>
+        
+    </section>
+
+    <h4>带参数混合</h4>
+    <p>(@_color:write) => (变量:默认值)</p>
+    <section style="border: 1px solid black;">
+        <style type="text/less">
+            .commonfn(@_color:write) {
+                display: inline-block;
+        
+                width: 50%;
+                height: 50%;
+                background-color: @_color;
+    
+                text-align: center;
+            }
+    
+            .section2 {
+                width: 600px;
+                height: 300px;
+                border: 1px solid black;
+    
+                .div1 {
+                    // 引用定义样式
+                    .commonfn();
+    
+                    /* background-color: red; */
+                }
+    
+                .div2 {
+                    // 引用定义样式
+                    .commonfn(deeppink);
+    
+                    /* background-color: bisque; */
+                }
+            }
+        </style>
+
+        <section class="section2">
+            <div class="div1">
+                div1
+            </div>
+    
+            <div class="div2">
+                div2
+            </div>
+        </section>
+        
+    </section>
+
+    <h4>命名参数混合</h4>
+    <p>(@_color:write) => (@变量:默认值), 使用时, 指定变量名 (@变量:参数)</p>
+    <section style="border: 1px solid black;">
+        <style type="text/less">
+            .commonfn2(@_color:write) {
+                display: inline-block;
+        
+                width: 50%;
+                height: 50%;
+                background-color: @_color;
+    
+                text-align: center;
+            }
+    
+            .section3 {
+                width: 600px;
+                height: 300px;
+                border: 1px solid black;
+    
+                .div1 {
+                    // 引用定义样式
+                    .commonfn2(@_color:pink);
+    
+                    /* background-color: red; */
+                }
+    
+                .div2 {
+                    // 引用定义样式
+                    .commonfn2(deeppink);
+    
+                    /* background-color: bisque; */
+                }
+            }
+        </style>
+
+        <section class="section3">
+            <div class="div1">
+                div1
+            </div>
+    
+            <div class="div2">
+                div2
+            </div>
+        </section>
+
+    </section>
+
+    <h4>匹配模式混合</h4>
+    <p>类似于函数重写, 匹配上的都会使用, 所以第一个.triangle(@_)也会被调用</p>
+    <section style="border: 1px solid black;">
+        <style type="text/less">   
+            .triangle(@_) {
+                width: 0px;
+                height: 0px;
+                overflow: hidden;
+            }
+
+            .triangle(L, @_w, @_c) {
+                border-width: @_w;
+                border-style: dashed solid dashed dashed;
+                border-color: transparent @_c transparent transparent;
+            }
+
+            .triangle(R, @_w, @_c) {
+                border-width: @_w;
+                border-style: dashed dashed dashed solid;
+                border-color: transparent transparent transparent @_c;
+            }
+
+            .triangle(T, @_w, @_c) {
+                border-width: @_w;
+                border-style: dashed dashed solid dashed;
+                border-color: transparent transparent @_c transparent;
+            }
+
+            .triangle(B, @_w, @_c) {
+                border-width: @_w;
+                border-style: solid dashed dashed dashed;
+                border-color: @_c transparent transparent transparent;
+            }
+
+            .section4 {
+                .div1 {
+                    .triangle(R, 40px, pink);
+                }
+            }
+        </style>
+
+        <section class="section4">
+            <div class="div1">
+            </div>
+        </section>
+        
+    </section>
+
+    <!-- 学习时使用, 正式环境打包编译好的 css 文件-->
+    <script src="./node_modules/less/dist/less.min.js"></script>
+</body>
+
+</html>

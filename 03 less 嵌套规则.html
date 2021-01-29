@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>less 嵌套规则</title>
+</head>
+
+<body>
+
+    <style type="text/less">
+        @color: bisque;
+
+        .div1 {
+            width: 600px;
+            height: 300px;
+            background-color: @color;
+    
+            .span1 {
+                display: inline-block;
+    
+                width: 100%;
+                height: 100%;
+                color: red;
+    
+                // 属性名引用变量
+                text-align: center;
+                line-height: 300px;
+
+                // 父元素伪事件
+                &:hover {
+                    color: bule;
+                }
+            }
+        }
+    </style>
+
+    <div class="div1">
+        <span class="span1">
+            &[伪事件]: 直接样式后面跟伪事件, 需要通过&去除与父元素的空格
+        </span>
+    </div>
+
+    <!-- 学习时使用, 正式环境打包编译好的 css 文件-->
+    <script src="./node_modules/less/dist/less.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>less 变量</title>
+</head>
+
+<body>
+
+    <style type="text/less">
+        @color: bisque;
+        @attName: text-align;
+
+        .div1 {
+            width: 200px;
+            height: 200px;
+            // 属性值引用变量
+            background-color: @color;
+    
+            .span1 {
+                display: inline-block;
+    
+                width: 100%;
+                height: 100%;
+                color: red;
+    
+                // 属性名引用变量
+                @{attName}: center;
+                line-height: 200px;
+            }
+        }
+    </style>
+
+    <div class="div1">
+        <span class="span1">
+            <h3>使用 @ 来申明一个变量: @color: bisque;</h3>
+            <ol>
+                <li>作为普通属性值来使用, 直接使用 @color</li>
+                <li>作为选择器和属性名, #@{attName}形式</li>
+                <li>作为url, @{url}</li>
+                <li>变量延迟加载, 域执行完, 采用最后一次变量赋值的值填充</li>
+            </ol>
+        </span>
+    </div>
+
+    <!-- 学习时使用, 正式环境打包编译好的 css 文件-->
+    <script src="./node_modules/less/dist/less.min.js"></script>
+</body>
+
+</html>

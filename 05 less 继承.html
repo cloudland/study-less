@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>less 继承</title>
+</head>
+
+<body>
+
+    <h3>继承 .common 编译后就是 , 分割的多个样式. :extend(继承样式, all(全部状态继承))</h3>
+    <style type="text/less">
+        .common {
+            width: 200px;
+            height: 200px;
+        }
+
+        .div1 {
+            &:extend(.common);
+            background-color: bisque;
+        }
+        .div2 {
+            &:extend(.common);
+            background-color: pink;
+        }
+    </style>
+
+    <section class="section">
+        <div class="div1">
+            div1
+        </div>
+
+        <div class="div2">
+            div2
+        </div>
+    </section>
+
+    <!-- 学习时使用, 正式环境打包编译好的 css 文件-->
+    <script src="./node_modules/less/dist/less.min.js"></script>
+
+</body>
+
+</html>
